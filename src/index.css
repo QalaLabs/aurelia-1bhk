@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: #101114;
+  color: #f3efe6;
+  font-family: Inter, "Segoe UI", sans-serif;
+}
+
+#root {
+  width: 100%;
+  max-width: none;
+  min-height: 100%;
+  text-align: left;
+  border: 0;
+  display: block;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+.font-display {
+  font-family: Outfit, Inter, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
