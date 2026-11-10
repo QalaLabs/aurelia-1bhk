@@ -1,10 +1,12 @@
 import { Html } from '@react-three/drei'
 import { ROOMS } from '../../data/layout.ts'
 import { useApartment } from '../../context/ApartmentContext.tsx'
+import { useStudio } from '../../studio/StudioContext.tsx'
 
 export function RoomLabels() {
   const { visibility, selected } = useApartment()
-  if (!visibility.labels) return null
+  const hideGuides = useStudio((state) => state.hideGuides)
+  if (!visibility.labels || hideGuides) return null
 
   return (
     <group>

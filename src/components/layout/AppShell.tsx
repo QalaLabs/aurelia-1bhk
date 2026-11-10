@@ -5,6 +5,7 @@ import { BottomBar } from './BottomBar.tsx'
 import { LeftSidebar } from './LeftSidebar.tsx'
 import { RightPanel } from './RightPanel.tsx'
 import { TopBar } from './TopBar.tsx'
+import { VideoStudio } from '../../studio/VideoStudio.tsx'
 
 export function AppShell() {
   const { fpv, setFpv, selectRoom, setView, resetView } = useApartment()
@@ -56,6 +57,7 @@ export function AppShell() {
         </div>
         <LeftSidebar open={showNav} />
         <RightPanel open={showInfo} />
+        <VideoStudio />
         {fpv && (
           <div className="pointer-events-none absolute bottom-4 left-1/2 z-30 -translate-x-1/2 rounded-full border border-white/15 bg-[#14171c]/90 px-4 py-2 text-[12px] text-[#f3efe6]">
             Click to look · WASD to walk · Esc to exit

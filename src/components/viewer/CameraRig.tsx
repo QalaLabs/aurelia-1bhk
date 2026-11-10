@@ -2,6 +2,7 @@ import { CameraControls, CameraControlsImpl } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { SHOTS } from '../../data/layout.ts'
 import { useApartment } from '../../context/ApartmentContext.tsx'
+import { useStudio } from '../../studio/StudioContext.tsx'
 
 function motionOff() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -10,6 +11,7 @@ function motionOff() {
 export function CameraRig() {
   const ref = useRef<CameraControlsImpl>(null)
   const { tool, view, fpv, frame, framedRoom } = useApartment()
+  const driving = useStudio((state) => state.driving)
 
   useEffect(() => {
     const controls = ref.current
@@ -33,7 +35,7 @@ export function CameraRig() {
 
   useEffect(() => {
     const controls = ref.current
-    if (!controls || fpv) return
+    if (!controls || fpv || driving) return
     const shot = framedRoom ? SHOTS[framedRoom] : SHOTS[view]
     void controls.setLookAt(
       shot.position[0],
@@ -44,13 +46,13 @@ export function CameraRig() {
       shot.target[2],
       !motionOff(),
     )
-  }, [view, fpv, frame, framedRoom])
+  }, [view, fpv, frame, framedRoom, driving])
 
   return (
     <CameraControls
       ref={ref}
       makeDefault
-      enabled={!fpv}
+      enabled={!fpv && !driving}
       smoothTime={motionOff() ? 0 : 0.45}
       dollyToCursor
       minDistance={2}

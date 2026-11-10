@@ -41,8 +41,8 @@ function Sun() {
         intensity={3.2}
         color="#fff4e4"
         castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
+        shadow-mapSize-width={3072}
+        shadow-mapSize-height={3072}
         shadow-camera-near={2}
         shadow-camera-far={80}
         shadow-camera-left={-28}
@@ -79,7 +79,7 @@ export function Lighting() {
       />
       <QuietBoundary>
         <Suspense fallback={null}>
-          <Environment preset="apartment" environmentIntensity={0.7} />
+          <Environment preset="apartment" environmentIntensity={0.85} />
         </Suspense>
       </QuietBoundary>
       <ShadowBake />

@@ -3,6 +3,7 @@ import { ROOMS } from '../../data/layout.ts'
 import { mats } from '../../materials/library.ts'
 import type { FloorKind, RoomDef, Vec3 } from '../../types/apartment.ts'
 import { useApartment } from '../../context/ApartmentContext.tsx'
+import { useStudio } from '../../studio/StudioContext.tsx'
 import { Box } from './geometry.tsx'
 
 const FLOOR_MAT: Record<FloorKind, (typeof mats)['woodFloor']> = {
@@ -25,6 +26,7 @@ function center(room: RoomDef): Vec3 {
 
 export function Floors() {
   const { selected, selectRoom, fpv } = useApartment()
+  const hideGuides = useStudio((state) => state.hideGuides)
 
   return (
     <group>
@@ -43,6 +45,7 @@ export function Floors() {
               shadow={false}
             />
             <mesh
+              name="walk-floor"
               layers={1}
               position={[x, 0.06, z]}
               rotation={[-Math.PI / 2, 0, 0]}
@@ -62,9 +65,9 @@ export function Floors() {
               <planeGeometry args={[width, depth]} />
               <meshBasicMaterial transparent opacity={0} depthWrite={false} />
             </mesh>
-            {active && (
+            {active && !hideGuides && (
               <>
-                <mesh position={[x, 0.09, z]} rotation={[-Math.PI / 2, 0, 0]} material={mats.highlight}>
+                <mesh name="floor-highlight" position={[x, 0.09, z]} rotation={[-Math.PI / 2, 0, 0]} material={mats.highlight}>
                   <planeGeometry args={[width - 0.08, depth - 0.08]} />
                 </mesh>
                 <Line
